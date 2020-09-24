@@ -1,0 +1,21 @@
+//AVANT DE COMMENCER LE PROJET
+Dans le terminal : - npm init => pour générer le package.json,
+                   - npm install express => pour générer le fichier "node_modules" + 
+                     définir "express" dans "app.js"
+
+
+//PROJET
+- Définir la route.
+- Définir le port.
+- Installer handlebars, voir site officiel.
+
+- Création du "partials", celuici est mettre dans "views".
+- Pour les images voir "express.static" + création dossier "Public".
+
+-Installer MongoDB => Voir site officiel ! NE PAS OUBLIER DE CREER LE DOSSIER "/data/db" 
+ à la racine, ex sous linux, il se retrouve dans "système de fichiers".
+
+** Dans le terminal, "show dbs" => Montre les bases de données qui figurent dans MongoDB.**
+
+- Pour créer une base de données à partir du terminal on met "use (+ nom choisi pour la base de données).
+- Pour savoir dans quelle base de données on se trouve, sur le terminal écrire "db" uniquement.
