@@ -19,3 +19,8 @@ Dans le terminal : - npm init => pour générer le package.json,
 
 - Pour créer une base de données à partir du terminal on met "use (+ nom choisi pour la base de données).
 - Pour savoir dans quelle base de données on se trouve, sur le terminal écrire "db" uniquement.
+
+=> On peut créer le contenu de notre base de données directement avec le ternimal, voir :https://docs.mongodb.com/manual/crud/.
+>> ne pas oublier de mettre l'ID ex: > db.products.insertOne({_id:1, name:"thé vert", price:9, stock:10})
+   sinon il met un ID par défaut complexe à retenir.
+** Tjs dans le terminal, "show collections" montre le nom de la collection que l'on a créé.**
