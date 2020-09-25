@@ -1,26 +1,58 @@
 //AVANT DE COMMENCER LE PROJET
-Dans le terminal : - npm init => pour générer le package.json,
+
+> Dans le terminal : - npm init => pour générer le package.json,
                    - npm install express => pour générer le fichier "node_modules" + 
                      définir "express" dans "app.js"
 
+> Installer Robo 3T (une des interfaces qui fait le lien avec mongoDB).
 
 //PROJET
+
 - Définir la route.
 - Définir le port.
-- Installer handlebars, voir site officiel.
+- Installer handlebars, voir site officiel + le définir dans "app.js".
 
-- Création du "partials", celuici est mettre dans "views".
+- Création du dossier "partials", celui-ci est à mettre dans le dossier "views".
 - Pour les images voir "express.static" + création dossier "Public".
 
--Installer MongoDB => Voir site officiel ! NE PAS OUBLIER DE CREER LE DOSSIER "/data/db" 
- à la racine, ex sous linux, il se retrouve dans "système de fichiers".
+<! ------------------------------------------------------ >
+
+//FONCTIONNEMENT DE MongoDB 
+
+- Installer MongoDB => Voir site officiel ! NE PAS OUBLIER DE CREER LE DOSSIER "/data/db" 
+  à la racine, ex sous linux, il se retrouve dans "système de fichiers".
+
+- Pour démarrer MongoDB => faire "mongo" dans le terminal.
 
 ** Dans le terminal, "show dbs" => Montre les bases de données qui figurent dans MongoDB.**
 
 - Pour créer une base de données à partir du terminal on met "use (+ nom choisi pour la base de données).
 - Pour savoir dans quelle base de données on se trouve, sur le terminal écrire "db" uniquement.
+- "use" peut servir aussi à changer de base de données ex use + le nom de la base de données où l'on veut travailler.
 
 => On peut créer le contenu de notre base de données directement avec le ternimal, voir :https://docs.mongodb.com/manual/crud/.
 >> ne pas oublier de mettre l'ID ex: > db.products.insertOne({_id:1, name:"thé vert", price:9, stock:10})
    sinon il met un ID par défaut complexe à retenir.
 ** Tjs dans le terminal, "show collections" montre le nom de la collection que l'on a créé.**
+
+- Pour voir les documents qui sont dans notre collection : "db.collection.find()", remplacer "collection" par 
+  le nom de notre collection, ici "products", le ".find()" affiche tous les éléments se trouvant dans la collection.
+
+- Pour ajouter une valeur dans la data base par le terminal, ex: db.products.updateOne({_id: 1}, {$set : { bio: true } } ).
+- Pour supprimer un document => db.products.deleteOne({ _id: ObjectId("5f6cb21e0485a4ff1078477c   })
+
+
+//MONGOOSE
+
+=> Sorte de passerelle qui sert à communiquer entre nodejs et mongoDB.
+
+- Installer Mongoose => Voir documentation officielle + le définir dans "app.js".
+- Créer un dossier database dans l'architecture nodejs + un second dossier "models" dans "database".
+  Mongoose fonctionne avec des modeles. + créer un fichier "article.js" dans le dossier "models".
+
+- Importer mongoose dans le fichier "article.js", pour le faire fonctionner + créer un schema : https://mongoosejs.com/docs/index.html
+
+- Faire fonctionner mongoose avec la base de données voir "apptest.js".
+=> Afficher cette nouvelle base de données récement créée dans le terminal avec nodemon apptest.js et "show dbs".
++ "show collections" pour voir le nom de notre document, ici, "article" (mongoDB fait passer les valeurs aux pluriel, donc c'est normal).
++ db.articles.find() pour tout afficher.
