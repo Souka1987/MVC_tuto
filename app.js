@@ -1,12 +1,16 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
+const article = require('./database/models/article');
+
+//Mongoose pour le lien avec nodejs. "blog" sera le nom de la base de données.
+mongoose.connect('mongodb://localhost:27017/blog', {useNewUrlParser: true, useUnifiedTopology: true});
 
 //Pour faire fonctionner "express"
 const app = express();
 
 //Mongoose pour le lien avec nodejs. "blog" sera le nom de la base de données.
-mongoose.connect('mongodb://localhost:27017/blog');
+//mongoose.connect('mongodb://localhost:27017/blog');
 
 
 //Pour les images
@@ -28,6 +32,13 @@ app.get("/", function (req, res) {
 
 app.get("/contact", function (req, res) {
     res.render('contact')
+})
+
+
+//Articles
+//Définir l'url
+app.get("/articles/add", (req, res) => {
+res.render("articles/add")
 })
 
 //Port

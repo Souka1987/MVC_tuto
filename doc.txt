@@ -56,3 +56,11 @@
 => Afficher cette nouvelle base de données récement créée dans le terminal avec nodemon apptest.js et "show dbs".
 + "show collections" pour voir le nom de notre document, ici, "article" (mongoDB fait passer les valeurs aux pluriel, donc c'est normal).
 + db.articles.find() pour tout afficher.
+
+
+<!---------------------------------------------->
+
+//AJOUTER UN ARTICLE
+
+- Créer dans "views" un dossier "articles + nouveau fichier "add.handlebars"
+** Dans l'excerce c'est le framwork Bulma qui est utilisé**
