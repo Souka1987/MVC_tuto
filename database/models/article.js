@@ -3,8 +3,12 @@ const mongoose = require('mongoose');
 //Schema
 const articleSchema = new mongoose.Schema({
     title:String,
-    intro:String,
     content:String,
+    author:String,
+    createDate: {
+        type: Date,
+        default: new Date() //=> La date sera créé au moment où l'on va créer l'article donc nul besion de le définir dans "add.hbs".
+    }
 
 })
 

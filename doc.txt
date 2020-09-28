@@ -64,3 +64,11 @@
 
 - Créer dans "views" un dossier "articles + nouveau fichier "add.handlebars"
 ** Dans l'excerce c'est le framwork Bulma qui est utilisé**
+
+- Installer le BodyParser, voir documentation => https://www.npmjs.com/package/body-parser
+- Rajouter du contenu via le document créé précedement "article.js" en lien avec "add.hbs" : http://localhost:3000/articles/add.
+  (titre + contenu + enregister), voir dans la database, MongoDB si cela a bien fonctionné = > show dbs + use blog + db.articles.find().
+
+** handlebars + express-handlebars versions :
+- npm i -D handlebars@4.5.0
+- npm i express-handlebars@3.1.0 **

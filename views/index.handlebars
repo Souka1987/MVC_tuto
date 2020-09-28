@@ -38,6 +38,9 @@
     <div class="container">
         <div class="columns">
 
+            <!---Définir la boucle pour les cards-->
+            <!---"posts" correspond à la ligne 39-40 de app.js-->
+            {{#each posts }}
             <div class="column">
                 <div class="card">
                     <div class="card-image">
@@ -47,60 +50,18 @@
                     </div>
                     <div class="card-content">
                         <div class="content">
-                            <h2>title</h2>
+                            <!-- "title" + "content", variables figurant dans le fichier "add.hbs"-->
+                            <h2>{{title }}</h2>
+                            <p>{{content }}</p>
                             <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
                         </div>
                     </div>
                 </div>
             </div>
+            {{/each }}<!--Fin de la boucle-->
 
-            <div class="column">
-                <div class="card">
-                    <div class="card-image">
-                        <figure class="image is-4by3">
-                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-                        </figure>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <h2>title</h2>
-                            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="column">
-                <div class="card">
-                    <div class="card-image">
-                        <figure class="image is-4by3">
-                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-                        </figure>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <h2>title</h2>
-                            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="column">
-                <div class="card">
-                    <div class="card-image">
-                        <figure class="image is-4by3">
-                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-                        </figure>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <h2>title</h2>
-                            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>

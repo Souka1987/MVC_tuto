@@ -1,24 +1,37 @@
-<div class="container">
-    <div class="field">
-        <label class="label">Titre de l'article</label>
-        <div class="control">
-            <input class="input" type="text" placeholder="Text input">
+<section class="section">
+    <div class="container is=fullhd">
+        <div class="field">
+            <!----Ne pas oublier de rajouter l'url et la methode--->
+            <form action="/articles/post" method="post">
+                <label class="label">Titre de l'article</label>
+                <div class="control">
+                    <input class="input" type="text" name="title">
+                </div>
         </div>
-    </div>
 
-    <div class="field">
-        <label class="label">Contenu</label>
-        <div class="control">
-            <textarea class="textarea" placeholder="Textarea"></textarea>
+        <div class="field">
+            <label class="label">Contenu</label>
+            <div class="control">
+                <textarea class="textarea" name="content"></textarea>
+            </div>
         </div>
-    </div>
 
-    <div class="field is-grouped">
-        <div class="control">
-            <button class="button is-link">Enregister</button>
+        <div class="field">
+            <form action="/articles/post" method="post">
+                <label class="label">Auteur</label>
+                <div class="control">
+                    <input class="input" type="text" name="author">
+                </div>
         </div>
-        <div class="control">
-            <button class="button is-text">Annuler</button>
+
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-link">Enregister</button>
+            </div>
+            <div class="control">
+                <button class="button is-text">Annuler</button>
+            </div>
+            </form>
         </div>
     </div>
-</div>
+</section>
