@@ -15,6 +15,9 @@
 - Création du dossier "partials", celui-ci est à mettre dans le dossier "views".
 - Pour les images voir "express.static" + création dossier "Public".
 
+- Installer ENV pour la sécurité => "npm i dotenv" et le définir dans "app.js" en le liant avec Mongoose =>
+  process.env.MONGO_URI + le définir également dans "console.js"
+
 <! ------------------------------------------------------ >
 
 //FONCTIONNEMENT DE MongoDB 
@@ -72,3 +75,12 @@
 ** handlebars + express-handlebars versions :
 - npm i -D handlebars@4.5.0
 - npm i express-handlebars@3.1.0 **
+
+- Pour formater la date installer : https://www.npmjs.com/package/handlebars.moment
+
+//AJOUTER UNE IMAGES 
+
+- Installer : https://www.npmjs.com/package/express-fileupload => Permet d'envoyer des fichiers avec express.
+- Créer un dossier dans  "Public", pour que l'image soit en statique, ici, "articles".
+
+//MIDDLEWARE

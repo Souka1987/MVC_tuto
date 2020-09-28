@@ -1,8 +1,8 @@
 <section class="section">
     <div class="container is=fullhd">
         <div class="field">
-            <!----Ne pas oublier de rajouter l'url et la methode--->
-            <form action="/articles/post" method="post">
+            <!----Ne pas oublier de rajouter l'url et la méthode. "multipart/form-data" sert à prendre en compte le jpeg--->
+            <form action="/articles/post" method="POST" enctype="multipart/form-data">
                 <label class="label">Titre de l'article</label>
                 <div class="control">
                     <input class="input" type="text" name="title">
@@ -22,6 +22,20 @@
                 <div class="control">
                     <input class="input" type="text" name="author">
                 </div>
+        </div>
+
+        <div class="file">
+            <label class="file-label">
+                <input class="file-input" type="file" name="image">
+                <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                        Envoyer une image au format : jpg
+                    </span>
+                </span>
+            </label>
         </div>
 
         <div class="field is-grouped">

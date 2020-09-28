@@ -5,9 +5,10 @@ const articleSchema = new mongoose.Schema({
     title:String,
     content:String,
     author:String,
+    image:String,
     createDate: {
         type: Date,
-        default: new Date() //=> La date sera créé au moment où l'on va créer l'article donc nul besion de le définir dans "add.hbs".
+        default: new Date() //=> La date sera créé au moment où l'on va créer l'article donc, nul besion de la définir dans "add.hbs".
     }
 
 })
