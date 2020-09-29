@@ -60,6 +60,8 @@
 + "show collections" pour voir le nom de notre document, ici, "article" (mongoDB fait passer les valeurs aux pluriel, donc c'est normal).
 + db.articles.find() pour tout afficher.
 
+//bodyParser, il est utilisé pour parser une page, il peut aussi afficher un modal.
+//aussi, le mentionner dans le html "add.hbs" voir ligne 5.
 
 <!---------------------------------------------->
 
@@ -83,4 +85,31 @@
 - Installer : https://www.npmjs.com/package/express-fileupload => Permet d'envoyer des fichiers avec express.
 - Créer un dossier dans  "Public", pour que l'image soit en statique, ici, "articles".
 
-//MIDDLEWARE
+**Installer le middleware**
+
+//CONTROLLERS 
+
+- Créer un dosier "controllers" + des fichier "articleAdd.js" etc...
+- définir les controllers dans "app.js"
+
+- Créer un nouveau dossier "middleware"
+
+//ENREGISTER UN UTILISATEUR
+
+- Créer un fichier dans "views", ici, "register.hbs".
+- Définir dans les controllers "userCreate.js".
+- Rajouter "user.js" dans le fichier "models" du dossier "database".
+
+
+//CRYPTER UN MOT DE PASSE + UTILISATEUR
+
+- On utilise le middleware => Voir "user.js"
+- Ne pas oublier d'installer becrypt => https://www.npmjs.com/package/bcrypt
+
+//Créer une page de connexion
+
+- voir "login.hbs" + "userLogin"
+
+L'utilistion doit s'inscrire pour pouvoir éditer un document dans le site, à sa connexion, lui 
+est attribué un id via la base de données.
+=> Pour qu'un utilisateur puisse éditer un article : mpn i express-session 

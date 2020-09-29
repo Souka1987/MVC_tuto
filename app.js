@@ -2,10 +2,31 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
-const article = require('./database/models/article');
+const Article = require('./database/models/article');
 const bodyParser = require('body-parser');
 const fileupload = require('express-fileupload');
-const path = require('path')
+const expressSession = require('express-session')
+
+
+
+//CONTROLLERS
+
+//Articles
+const articleSingleController = require('./controllers/articleSingle')
+const articleAddController = require('./controllers/articleAdd')
+const articlePostController = require('./controllers/articlePost')
+const homePage = require('./controllers/homePage')
+
+//Middleware
+const articleValidPost = require('./middleware/articleValidPost')
+
+//User
+const userCreate = require('./controllers/userCreate')
+const userRegister = require('./controllers/userRegister')
+const userLogin = require('./controllers/userLogin')
+const userLoginAuth = require('./controllers/userLoginAuth')
+
+
 
 
 //ENV
@@ -24,12 +45,15 @@ var Handlebars = require("handlebars");
 var MomentHandler = require("handlebars.moment");
 MomentHandler.registerHelpers(Handlebars);
 
-//Post
-const Post = require('./database/models/article')
 
 //Pour faire fonctionner "express"
 const app = express();
 
+//User
+app.use(expressSession({
+    secret:'securite',
+    name:'biscuit'
+}))
 
 //bodyParser
 app.use(bodyParser.json())
@@ -48,66 +72,25 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
-
-//Middleware
-const middleware = (req, res, next) => {
-    if(!req.files){
-        return res.redirect('/')
-    }
-console.log('je suis le middleware');
-next()
-}
-//éxécuter avec express
-app.use("/articles/post", middleware)
-
-
-
-//syncroniser l"url "/" avec la base de données avec la méthode "async"
-app.get("/", async (req, res) => {
-
-    //ci-dessous, syntax permetant d'attendre le retour de la requête + "Post.find({})" pour afficher le contenu de la database.
-    const posts = await Post.find({})
-    res.render("index", {posts} )
-})
+app.get("/", homePage)
 
 //Articles
 //Définir l'url
-app.get("/articles/add", (req, res) => {
-    res.render("articles/add")
-})
+app.get("/article/add", articleAddController)
+app.get ("/articles/:_id", articleSingleController)
+app.post("/article/post", articlePostController)
 
-app.get ("/articles/:_id", async (req, res)=>{
-    const article = await Post.findById(req.params.id)
-    res.render('articles', {article})
-})
+//Middleware
+app.use("/articles/post", articleValidPost)
 
-//bodyParser, il est utilisé pour parser une page, il peut aussi afficher un modal.
-//aussi, le mentionner dans le html "add.hbs" voir ligne 5.
-app.post("/articles/post", (req, res) => {
+//User
+app.get("/user/create", userCreate)
+app.post("/user/register", userRegister)
+app.get("/user/login", userLogin)
+app.post('/user/loginAuth', userLoginAuth)
 
-    //Dire à express d'envoyer les images dans le fichier "articles"
-    const { image } = req.files //Méthode destructuring, voir doc "affectation par décomposition"
-    const uploadFile = path.resolve(__dirname, "public/articles", image.name)
-    /*"dirname" signifie, "je suis ici", il renvoie le chemin du dossier parent, 
-    cela évite de prendre le dossier "public" à la racine, car risque de conflit avec le serveur.*/
 
-    //permet de faire déplacer l'image dans l'url
-    image.mv(uploadFile, (error) => {
-        // pour faire apparaître l'image sur le site
-        Post.create({
 
-                ...req.body,
-                image: `/articles/${image.name}`
-
-            }
-
-            , (error, post) => {
-                res.redirect('/')
-            })
-    })
-
-})
-//console.log(req.files); //Pour donner les infos de l'image.
 
 //Définir la page "contact"
 app.get("/contact", (req, res) => {
