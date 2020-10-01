@@ -13,10 +13,34 @@
         </div>
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-end">
+
+
+                <!--Processus de connection pour l'utilisateur-->
+                {{#if user }}
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="menu-link" href="/article/add">
+                            Ajouter un article
+                            <!--Il peut éditer un article seulement si il est connecté-->
+                        </a>
+                    </div>
+                </div>
+
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="menu-link" href="user/logout">
+                            Se déconnecter
+                            <!--il pourra ensuite se déconnecter de sa session-->
+                        </a>
+                    </div>
+                </div>
+                {{else }}
+
                 <div class="navbar-item">
                     <div class="buttons">
                         <a class="menu-link" href="/user/login">
                             Se connecter
+                            <!--Sinon il doit se connecter pour éditer un article-->
                         </a>
                     </div>
                 </div>
@@ -24,18 +48,12 @@
                 <div class="navbar-item">
                     <div class="buttons">
                         <a class="menu-link" href="/user/create">
-                            S'inscrire
+                            S'inscrire <!--Ou alors s'inscrire si ce n'est pas fait-->
                         </a>
                     </div>
                 </div>
 
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="menu-link" href="/article/add">
-                            Ajouter un article
-                        </a>
-                    </div>
-                </div>
+                {{/if }}
 
                 <div class="navbar-item">
                     <div class="buttons">

@@ -12,7 +12,10 @@ module.exports = (req, res) => {
             // si il y a une erreur il reste sur la page où il se trouve.
             if (error) {
 
-                console.log(Object.keys(error.errors).map(key => error.errors[key].message));//Pour aficher les érreurs
+                const registerError = (Object.keys(error.errors).map(key => error.errors[key].message));//Pour aficher les erreurs
+
+                req.flash('registerError', registerError)
+                req.flash('data', req.body) //Pour garder les infos
 
                 return res.redirect('/user/create')
             }

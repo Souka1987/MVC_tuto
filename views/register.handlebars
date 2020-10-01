@@ -1,22 +1,35 @@
 <section class="section">
     <div class="container is-fullhd">
 
+        <!--Pour afficher les erreurs sur le site : voir "userCreate.js"-->
+        <div class="content">
+            <ol type="1">
+                {{#each errors}}
+                <!-- "this" récupère ce qu'il y a dans "errors"-->
+                <li>{{this }}</li>
+                <!--fin de la boucle-->
+                {{/each }}
+            </ol>
+        </div>
+
+
+
         <!--Définir la requête + enctype="multipart/form-data", si besion de mettre un image--->
         <form action="/user/register" method="POST" enctype="multipart/form-data">
 
             <div class="field">
                 <label class="label">Name</label>
                 <div class="control">
-                    <!-- "name" se trouve dans la database-->
-                    <input class="input" type="text" name="name" placeholder="Text input">
+                    <!-- "name" se trouve dans la database, le "data.name" a pour but de garder-->
+                    <input class="input" type="text" name="name" placeholder="Text input" value={{data.name}}>
                 </div>
             </div>
 
             <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
-                    <!-- "email" se trouve dans la database-->
-                    <input class="input" type="email" name="email" placeholder="Email input">
+                    <!-- "email" se trouve dans la database, le "data.email" a pour but de garder-->
+                    <input class="input" type="email" name="email" placeholder="Email input" value={{data.email}}>
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
@@ -25,8 +38,8 @@
 
             <div class="field">
                 <p class="control has-icons-left">
-                    <!-- "password" se trouve dans la database -->
-                    <input class="input" type="password" name="password" placeholder="Password">
+                    <!-- "password" se trouve dans la database, le "data.password" a pour but de le garder-->
+                    <input class="input" type="text" name="password" placeholder="Password" value={{data.password}}>
                     <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
                     </span>

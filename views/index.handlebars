@@ -52,10 +52,10 @@
                     <div class="card-content">
                         <div class="content">
                             <!-- "title" + "content", variables figurant dans le fichier "add.hbs"-->
-                            <a href="/articles/{{_id }}"><h2>{{title }}</h2></a>
-                            <p>{{content }}</p>
+                            <a href="/articles/{{ _id }}"><h2>{{ title }}</h2></a>
+                            <p>{{ content }}</p>
                             <!-- récupérer le "createDate" et "author" dans "article.js"-->
-                            <p>Publié par :{{author }}, le {{moment createDate format="DD-MM-YY" }}</p>
+                            <p>Publié par :{{ author }}, le {{ moment createDate format="DD-MM-YY" }}</p>
                         </div>
                     </div>
                 </div>

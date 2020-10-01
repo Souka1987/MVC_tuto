@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     const posts = await Post.find({})
 
     //indiquer les valeurs de la session
-    console.log(req.session);
+    // console.log(req.session);
 
     res.render("index", {
         posts
