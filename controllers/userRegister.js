@@ -11,6 +11,9 @@ module.exports = (req, res) => {
 
             // si il y a une erreur il reste sur la page où il se trouve.
             if (error) {
+
+                console.log(Object.keys(error.errors).map(key => error.errors[key].message));//Pour aficher les érreurs
+
                 return res.redirect('/user/create')
             }
             // si il n'y a pas d'erreur il repart sur la page d'acceuil.

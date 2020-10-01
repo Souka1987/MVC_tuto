@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const Article = require('./database/models/article');
 const bodyParser = require('body-parser');
 const fileupload = require('express-fileupload');
-const expressSession = require('express-session')
+const expressSession = require('express-session');
+const MongoStore = require('connect-mongo')
 
 
 
@@ -18,7 +19,8 @@ const articlePostController = require('./controllers/articlePost')
 const homePage = require('./controllers/homePage')
 
 //Middleware
-const articleValidPost = require('./middleware/articleValidPost')
+//const articleValidPost = require('./middleware/articleValidPost')
+
 
 //User
 const userCreate = require('./controllers/userCreate')
@@ -49,10 +51,19 @@ MomentHandler.registerHelpers(Handlebars);
 //Pour faire fonctionner "express"
 const app = express();
 
+//MongoStore
+const mongoStore = MongoStore(expressSession) //connection du module "MongoStore" dans "expressSession"
+
 //User
 app.use(expressSession({
-    secret:'securite',
-    name:'biscuit'
+    secret: 'securite',
+    name: 'biscuit',
+    saveUninitialized: true, //sauvegarde ce qui n'est pas initialisé
+    resave: false, //enregistre automatiquement la session même si elle n'est pas modifiée
+
+    store: new mongoStore({
+        mongooseConnection: mongoose.connection
+    })
 }))
 
 //bodyParser
@@ -63,6 +74,9 @@ app.use(bodyParser.urlencoded({
 //Pour les images
 app.use(fileupload())
 
+//Authentification
+const auth = require("./middleware/auth")
+
 //Pour les images
 app.use(express.static('public'));
 
@@ -72,24 +86,27 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
+
+
+//Middleware
+const articleValidPost = require('./middleware/articleValidPost')
+app.use("/articles/post", articleValidPost)
+app.use("/articles/add", auth)
+
 app.get("/", homePage)
 
 //Articles
 //Définir l'url
-app.get("/article/add", articleAddController)
-app.get ("/articles/:_id", articleSingleController)
-app.post("/article/post", articlePostController)
+app.get("/article/add", /*auth,*/ articleAddController)
+app.get("/articles/:_id", articleSingleController)
+app.post("/articles/post", /*auth, articleValidPost,*/ articlePostController)
 
-//Middleware
-app.use("/articles/post", articleValidPost)
 
 //User
 app.get("/user/create", userCreate)
 app.post("/user/register", userRegister)
 app.get("/user/login", userLogin)
 app.post('/user/loginAuth', userLoginAuth)
-
-
 
 
 //Définir la page "contact"

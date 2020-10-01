@@ -113,3 +113,14 @@
 L'utilistion doit s'inscrire pour pouvoir éditer un document dans le site, à sa connexion, lui 
 est attribué un id via la base de données.
 => Pour qu'un utilisateur puisse éditer un article : mpn i express-session 
+
+- Installer "npm i connect-mongo" => Permet d'enregister une session d'un utilisateur dans la base de données.
+
+**Bouton SE DECONNECTER/LOGOUT**
+- Pocéder à la supression de l'id dans le terminal => db.sessions.deleteOne({_id: "le numéro de l'id"})
+=> Le fait d'éffacer le cookies, correspondant à l'id se trouvant dans la base de données permet l'action 
+de la déconnection.
+
+//AFFICHER LES MESSAGES D'ERREUR
+- Avec la méthode Object.keys() : https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/keys, 
+  voir "userRegister.js"
