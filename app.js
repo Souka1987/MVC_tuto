@@ -1,4 +1,7 @@
+// ! Javascript lit de haut en bas et de droite à gauche
+
 //Définir les constantes
+const article = require('./database/models/article');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
@@ -7,8 +10,9 @@ const fileupload = require('express-fileupload');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo');
 //le flash est une zone spéciale de la session servant à stocker les infos utilisateur.
-const connectFlash = require('connect-flash')
-
+const connectFlash = require('connect-flash');
+//éditeur de texte
+const {stripTags} = require('./helpers/hbs')
 
 
 //CONTROLLERS
@@ -78,14 +82,19 @@ app.use(fileupload())
 
 //Authentification
 const auth = require("./middleware/auth");
-//Le flash est généralement utilisé en combinaison avec des redirections, garantissant que le message est disponible sur la page suivante à rendre.
+/*Le flash est généralement utilisé en combinaison avec des redirections, 
+garantissant que le message est disponible sur la page suivante.*/
 const redirectAuthSucess = require('./middleware/redirectAuthSucess')
 
 //Pour les images
 app.use(express.static('public'));
 
-//Route
+//ROUTE
 app.engine('handlebars', exphbs({
+    helpers:{
+        stripTags: stripTags/*pour l'édition de texte afin de le faire passer dans le
+        moteur de templating "app.engine"*/
+    },
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
@@ -109,7 +118,6 @@ app.get("/article/add", articleAddController)
 app.get("/articles/:id", articleSingleController)
 app.post("/articles/post", articlePostController)
 
-const article = require('./database/models/article')
 
 //Users
 app.get("/user/create", redirectAuthSucess, userCreate)
@@ -124,6 +132,11 @@ app.get("/contact", (req, res) => {
     res.render('contact')
 })
 
+//Error 404
+app.use((req, res) =>{ /*On demande à javascript de renvoyer l'user vers la
+page "error404", lorsqu'il rentre un url qui n'existe pas dans l'application*/
+    res.render('error404')
+})
 
 //Port
 app.listen(3000, function () {

@@ -80,6 +80,8 @@
 
 - Pour formater la date installer : https://www.npmjs.com/package/handlebars.moment
 
+<!------------------------------------------->
+
 //AJOUTER UNE IMAGES 
 
 - Installer : https://www.npmjs.com/package/express-fileupload => Permet d'envoyer des fichiers avec express.
@@ -87,12 +89,17 @@
 
 **Installer le middleware**
 
+<!------------------------------------------->
+
 //CONTROLLERS 
 
 - Créer un dosier "controllers" + des fichier "articleAdd.js" etc...
 - définir les controllers dans "app.js"
 
 - Créer un nouveau dossier "middleware"
+
+<!--------------------------------------------->
+
 
 //ENREGISTER UN UTILISATEUR
 
@@ -121,7 +128,24 @@ est attribué un id via la base de données.
 => Le fait d'éffacer le cookies, correspondant à l'id se trouvant dans la base de données permet l'action 
 de la déconnection.
 
+<!-------------------------------------------->
+
+
 //AFFICHER LES MESSAGES D'ERREUR
 - Avec la méthode Object.keys() : https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/keys, 
   voir "userRegister.js" + "register.hbs".
 
+// Ajouter la page ERROR 404
+=> voir "app.js" et "error404.hbs"
+
+<!--------------------------------------------->
+
+//AJOUTER UN EDITEUR DE TEXTE 
+Par exemple ici, on utilise CKeditor.
+
+https://ckeditor.com/docs/ckeditor4/latest/guide/dev_installation.html
+
+- Prendre la version 4 puis dans documentation/guides/getting started puis récupérer l'url 
+  de la version standard et le coller dans "main.hbs".
+
+- Voir handlebars helpers et l'installer pour l'édition de texte => https://github.com/helpers/handlebars-helpers

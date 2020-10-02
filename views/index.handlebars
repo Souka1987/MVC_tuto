@@ -46,14 +46,15 @@
                     <div class="card-image">
                         <figure class="image is-4by3">
                             <!--Définir la boucle "image", celui-ci est récupérer dans "app.js"-->
-                            <img src="{{image }}" alt="Placeholder image">
+                            <img src="{{ image }}" alt="Placeholder image">
                         </figure>
                     </div>
                     <div class="card-content">
                         <div class="content">
                             <!-- "title" + "content", variables figurant dans le fichier "add.hbs"-->
                             <a href="/articles/{{ _id }}"><h2>{{ title }}</h2></a>
-                            <p>{{ content }}</p>
+                            <!-- rajout de la variable "stripTags"-->
+                            <p>{{ stripTags content }}</p>
                             <!-- récupérer le "createDate" et "author" dans "article.js"-->
                             <p>Publié par :{{ author }}, le {{ moment createDate format="DD-MM-YY" }}</p>
                         </div>
