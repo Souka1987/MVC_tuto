@@ -1,7 +1,6 @@
 // ! Javascript lit de haut en bas et de droite à gauche
 
 //Définir les constantes
-const article = require('./database/models/article');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
@@ -12,7 +11,11 @@ const MongoStore = require('connect-mongo');
 //le flash est une zone spéciale de la session servant à stocker les infos utilisateur.
 const connectFlash = require('connect-flash');
 //éditeur de texte
-const {stripTags} = require('./helpers/hbs')
+const {
+    stripTags
+} = require('./helpers/hbs');
+//Indispensable pour les méthodes "put" et "delete"
+const methodOverride = require('method-override')
 
 
 //CONTROLLERS
@@ -21,6 +24,7 @@ const {stripTags} = require('./helpers/hbs')
 const articleSingleController = require('./controllers/articleSingle')
 const articleAddController = require('./controllers/articleAdd')
 const articlePostController = require('./controllers/articlePost')
+const articleEditController = require('./controllers/articleEdit')
 const homePage = require('./controllers/homePage')
 
 
@@ -40,7 +44,7 @@ require('dotenv').config()
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    
+
 });
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true)
@@ -59,6 +63,9 @@ const mongoStore = MongoStore(expressSession) //connection du module "MongoStore
 
 //Connect-Flash
 app.use(connectFlash())
+
+//methode-override => pour la mise à jour.
+app.use(methodOverride("_method"))
 
 //Users
 app.use(expressSession({
@@ -91,24 +98,28 @@ app.use(express.static('public'));
 
 //ROUTE
 app.engine('handlebars', exphbs({
-    helpers:{
-        stripTags: stripTags/*pour l'édition de texte afin de le faire passer dans le
-        moteur de templating "app.engine"*/
+    helpers: {
+        stripTags: stripTags
+        /*pour l'édition de texte afin de le faire passer dans le
+                moteur de templating "app.engine"*/
     },
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
-app.use('*', (req, res, next) =>{ //pour voir les numéros d'identification de l'user
+app.use('*', (req, res, next) => { //pour voir les numéros d'identification de l'user
     res.locals.user = req.session.userId;
     console.log(res.locals.user);
     next()
 })
 
 
+
 //Middleware
-const articleValidPost = require('./middleware/articleValidPost')
-app.use("/articles/post", articleValidPost)
+const articleValidPost = require('./middleware/articleValidPost');
+const article = require('./database/models/article');
+app.use("/articles/post", articleValidPost);
 app.use("/article/add", auth)
+app.use("/article/edit", auth)
 
 app.get("/", homePage)
 
@@ -123,8 +134,10 @@ app.post("/articles/post", articlePostController)
 app.get("/user/create", redirectAuthSucess, userCreate)
 app.post("/user/register", redirectAuthSucess, userRegister)
 app.get("/user/login", redirectAuthSucess, userLogin)
-app.post('/user/loginAuth',redirectAuthSucess, userLoginAuth)
-app.get('/user/logout', userLogout) //se déconnecter sans redirection
+app.post('/user/loginAuth', redirectAuthSucess, userLoginAuth)
+app.get("/user/logout", userLogout) //se déconnecter sans redirection
+
+app.put('/article/edit', articleEditController)
 
 
 //Définir la page "contact"
@@ -133,7 +146,8 @@ app.get("/contact", (req, res) => {
 })
 
 //Error 404
-app.use((req, res) =>{ /*On demande à javascript de renvoyer l'user vers la
+app.use((req, res) => {
+    /*On demande à javascript de renvoyer l'user vers la
 page "error404", lorsqu'il rentre un url qui n'existe pas dans l'application*/
     res.render('error404')
 })
