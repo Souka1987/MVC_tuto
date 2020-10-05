@@ -5,7 +5,7 @@ module.exports = {
         return Input.replace(/<(?:.|\n)*?>/gm, '');
     },
     limit: function (arr, limit) {
-        if (!Array.isArray(arr)) {
+        if (!Array.isArray(arr)) {//"limit" pour réduire les cards
             return [];
         }
         return arr.slice(0, limit);

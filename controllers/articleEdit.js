@@ -1,17 +1,10 @@
 const path = require('path');
-const article = require('../database/models/article');
+const Article = require('../database/models/article')
 
-
-module.exports =  (req, res) => {
-    article.findById({
-        _id: req.params.id
-    }, {
-        //update
-        title: req.body.title,
-        content: req.body.content,
-        author:req.body.author,
-        image: req.body.image
-    })
-    res.send('modifié');
+//syncroniser l"url "/" avec la base de données avec la méthode "async"
+module.exports = async (req, res)=>{
+    const article = await Article.findById(req.params.id)
+   
+    res.render('article/edit', { article })
 }
 

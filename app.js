@@ -18,16 +18,17 @@ const {
 const methodOverride = require('method-override');
 
 
-
 //CONTROLLERS
 
 //Articles
 const articleSingleController = require('./controllers/articleSingle')
 const articleAddController = require('./controllers/articleAdd')
 const articlePostController = require('./controllers/articlePost')
-const articleEditController = require('./controllers/articleEdit')
 const homePage = require('./controllers/homePage')
 
+//PUT - pour éditer un article par lutilisateur ou l'admin
+const articleEditController = require('./controllers/articleEdit')
+const articleFormPageController = require('./controllers/articleFormPage')
 
 //Users
 const userCreate = require('./controllers/userCreate')
@@ -100,7 +101,7 @@ app.use(express.static('public'));
 app.engine('handlebars', exphbs({
     helpers: {
         stripTags: stripTags,
-        limit: limit
+        limit: limit //"limit", pour la réduction des cards
         /*pour l'édition de texte afin de le faire passer dans le
                 moteur de templating "app.engine"*/
     },
@@ -118,10 +119,9 @@ app.use('*', (req, res, next) => { //pour voir les numéros d'identification de 
 //Middleware
 const articleValidPost = require('./middleware/articleValidPost');
 const article = require('./database/models/article');
-const articleEdit = require('./controllers/articleEdit');
 app.use("/articles/post", articleValidPost);
-app.use("/article/add", auth)
-app.use("/article/edit", auth)
+app.use("/article/add", auth);
+
 
 app.get("/", homePage)
 
@@ -129,6 +129,8 @@ app.get("/", homePage)
 //Définir l'url
 app.get("/article/add", articleAddController)
 app.get("/articles/:id", articleSingleController)
+app.get("/articles/edit/:id", articleEditController)
+app.post("/articles/edit/:id", articleFormPageController)
 app.post("/articles/post", articlePostController)
 
 
@@ -139,7 +141,6 @@ app.get("/user/login", redirectAuthSucess, userLogin)
 app.post('/user/loginAuth', redirectAuthSucess, userLoginAuth)
 app.get("/user/logout", userLogout) //se déconnecter sans redirection
 
-app.put('/article/edit', articleEditController)
 
 
 //Définir la page "contact"
