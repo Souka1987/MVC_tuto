@@ -40,7 +40,7 @@
 
             <!---Définir la boucle pour les cards-->
             <!---"posts" correspond à la ligne 39-40 de app.js-->
-            {{#each posts }}
+            {{#each (limit posts 2)}} 
             <div class="column">
                 <div class="card">
                     <div class="card-image">

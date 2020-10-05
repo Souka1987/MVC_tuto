@@ -12,10 +12,11 @@ const MongoStore = require('connect-mongo');
 const connectFlash = require('connect-flash');
 //éditeur de texte
 const {
-    stripTags
+    stripTags, limit
 } = require('./helpers/hbs');
 //Indispensable pour les méthodes "put" et "delete"
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
+
 
 
 //CONTROLLERS
@@ -53,7 +54,6 @@ mongoose.set('useCreateIndex', true)
 var Handlebars = require("handlebars");
 var MomentHandler = require("handlebars.moment");
 MomentHandler.registerHelpers(Handlebars);
-
 
 //Pour faire fonctionner "express"
 const app = express();
@@ -99,12 +99,14 @@ app.use(express.static('public'));
 //ROUTE
 app.engine('handlebars', exphbs({
     helpers: {
-        stripTags: stripTags
+        stripTags: stripTags,
+        limit: limit
         /*pour l'édition de texte afin de le faire passer dans le
                 moteur de templating "app.engine"*/
     },
     defaultLayout: 'main'
 }));
+
 app.set('view engine', 'handlebars');
 app.use('*', (req, res, next) => { //pour voir les numéros d'identification de l'user
     res.locals.user = req.session.userId;
@@ -113,10 +115,10 @@ app.use('*', (req, res, next) => { //pour voir les numéros d'identification de 
 })
 
 
-
 //Middleware
 const articleValidPost = require('./middleware/articleValidPost');
 const article = require('./database/models/article');
+const articleEdit = require('./controllers/articleEdit');
 app.use("/articles/post", articleValidPost);
 app.use("/article/add", auth)
 app.use("/article/edit", auth)
