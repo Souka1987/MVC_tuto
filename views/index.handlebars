@@ -65,6 +65,7 @@
                     <span class="icon has-text-success">
                         <a href="/articles/edit/{{ _id }}"><i  class="fas fa-edit"></i></a>
                     </span>
+                    <a  href="{{ this._id }}/?_method=DELETE" method="POST" class="delete"></a>
                 </div>
             </div>
             {{/each }}

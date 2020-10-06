@@ -1,44 +1,31 @@
 <section class="section">
-    <div class="container is=fullhd">
+    <class class="container is=fullhd">
         <div class="field">
-            <!----Ne pas oublier de rajouter l'url et la méthode. "multipart/form-data" sert à prendre en compte le jpeg--->
-            <form action="method=PUT" method="POST" enctype="multipart/form-data">
-                <label class="label">Titre de l'article</label>
+            <form action="/articles/edit/{{ article._id }}" method="POST" enctype="multipart/form-data">
+                <label class="label">Titre de l'article: {{ article.title }} </label>
                 <div class="control">
-                    <input class="input" type="text" name="title">
+                    <input class="input" type="text" name="title" value="{{ title }}">
                 </div>
-        </div>
 
-        <div class="field">
-            <label class="label">Contenu</label>
-            <div class="control">
-                <form>
-                    <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
-                    <script>
-                        CKEDITOR.replace('editor1');
-                    </script>
-                </form>
-            </div>
-        </div>
 
-        <!--<div class="file">
-            <label class="file-label">
-                <input class="file-input" type="file" name="image">
-                <span class="file-cta">
-                    <span class="file-icon">
-                        <i class="fas fa-upload"></i>
-                    </span>
-                    <span class="file-label">
-                        Envoyer une image au format : jpg
-                    </span>
-                </span>
-            </label>
-        </div>-->
+                <div class="field">
+                    <label class="label">Contenu</label>
+                    <div class="control">
+                        <textarea name="content" id="editor1" rows="10" cols="80" value="{{ content }}"></textarea>
+                        <script>
+                            CKEDITOR.replace('content');
+                        </script>
+                    </div>
+                </div>
 
-        <div class="field is-grouped">
-            <div class="control">
-                <a href="{{ article._id }}"><button class="button is-link">Valider</button></a>
-            </div>
+                <div class="field">
+                    <label class="label">Auteur</label>
+                    <div class="control">
+                        <input class="input" type="text" name="author" value="{{ author }}">
+                    </div>
+                    <button class="button is-link">Valider</button>
+                </div>
+            </form>
         </div>
-    </div>
+    </class>
 </section>

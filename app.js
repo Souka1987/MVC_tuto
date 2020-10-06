@@ -26,9 +26,12 @@ const articleAddController = require('./controllers/articleAdd')
 const articlePostController = require('./controllers/articlePost')
 const homePage = require('./controllers/homePage')
 
-//PUT - pour éditer un article par lutilisateur ou l'admin
-const articleEditController = require('./controllers/articleEdit')
-const articleFormPageController = require('./controllers/articleFormPage')
+//PUT - pour éditer un article par l'utilisateur ou l'admin
+const articleEditPostController = require('./controllers/articleEditPost')
+const articleEditPageController = require('./controllers/articleEditPage')
+
+//DELETE
+const articleDeleteController = require('./controllers/articleDelete')
 
 //Users
 const userCreate = require('./controllers/userCreate')
@@ -118,7 +121,7 @@ app.use('*', (req, res, next) => { //pour voir les numéros d'identification de 
 
 //Middleware
 const articleValidPost = require('./middleware/articleValidPost');
-const article = require('./database/models/article');
+const Article = require('./database/models/article');
 app.use("/articles/post", articleValidPost);
 app.use("/article/add", auth);
 
@@ -129,9 +132,10 @@ app.get("/", homePage)
 //Définir l'url
 app.get("/article/add", articleAddController)
 app.get("/articles/:id", articleSingleController)
-app.get("/articles/edit/:id", articleEditController)
-app.post("/articles/edit/:id", articleFormPageController)
+app.get("/articles/edit/:id", articleEditPageController)
+app.post("/articles/edit/:id", articleEditPostController)
 app.post("/articles/post", articlePostController)
+app.get("/:id,", articleDeleteController)
 
 
 //Users
