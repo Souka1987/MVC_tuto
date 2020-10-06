@@ -54,7 +54,7 @@
                         <div class="content">
                             <!-- "title" + "content", variables figurant dans le fichier "add.hbs"-->
                             <a href="/articles/{{ _id }}">
-                                <h2>{{ title }}</h2>
+                                <h2>Titre: {{ title }}</h2>
                             </a>
                             <!-- rajout de la variable "stripTags"-->
                             <p>{{ stripTags content }}</p>
@@ -65,15 +65,10 @@
                     <span class="icon has-text-success">
                         <a href="/articles/edit/{{ _id }}"><i  class="fas fa-edit"></i></a>
                     </span>
-                    <a  href="{{ this._id }}/?_method=DELETE" method="POST" class="delete"></a>
                 </div>
             </div>
             {{/each }}
             <!--Fin de la boucle-->
-
-
-
-
         </div>
     </div>
 </section>

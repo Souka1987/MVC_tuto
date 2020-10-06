@@ -1,6 +1,7 @@
 // ! Javascript lit de haut en bas et de droite à gauche
 
-//Définir les constantes
+/** CONSTANTES **/
+
 const express = require('express');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
@@ -8,19 +9,20 @@ const bodyParser = require('body-parser');
 const fileupload = require('express-fileupload');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo');
-//le flash est une zone spéciale de la session servant à stocker les infos utilisateur.
+// le flash est une zone spéciale de la session servant à stocker les infos utilisateur.
 const connectFlash = require('connect-flash');
-//éditeur de texte
+// éditeur de texte
 const {
     stripTags, limit
 } = require('./helpers/hbs');
+
 //Indispensable pour les méthodes "put" et "delete"
 const methodOverride = require('method-override');
 
 
-//CONTROLLERS
+/** CONTROLLERS **/
 
-//Articles
+//ARTICLES
 const articleSingleController = require('./controllers/articleSingle')
 const articleAddController = require('./controllers/articleAdd')
 const articlePostController = require('./controllers/articlePost')
@@ -33,7 +35,7 @@ const articleEditPageController = require('./controllers/articleEditPage')
 //DELETE
 const articleDeleteController = require('./controllers/articleDelete')
 
-//Users
+//USERS
 const userCreate = require('./controllers/userCreate')
 const userRegister = require('./controllers/userRegister')
 const userLogin = require('./controllers/userLogin')
@@ -43,7 +45,7 @@ const userLogout = require('./controllers/userLogout')
 //ENV
 require('dotenv').config()
 //console.log(process.env);
-//require('./console')
+
 
 //Mongoose pour le lien avec nodejs. "blog" sera le nom de la base de données.
 mongoose.connect(process.env.MONGO_URI, {
@@ -91,7 +93,7 @@ app.use(bodyParser.urlencoded({
 //Pour les images
 app.use(fileupload())
 
-//Authentification
+//Authentification, on passe par le middleware
 const auth = require("./middleware/auth");
 /*Le flash est généralement utilisé en combinaison avec des redirections, 
 garantissant que le message est disponible sur la page suivante.*/
@@ -112,39 +114,52 @@ app.engine('handlebars', exphbs({
 }));
 
 app.set('view engine', 'handlebars');
-app.use('*', (req, res, next) => { //pour voir les numéros d'identification de l'user
-    res.locals.user = req.session.userId;
+app.use('*', (req, res, next) => { 
+    res.locals.user = req.session.userId;//pour voir le numéro d'identification de l'user
     console.log(res.locals.user);
     next()
 })
 
 
-//Middleware
+//MIDDLEWARE
+// Pour la validation de l'article
 const articleValidPost = require('./middleware/articleValidPost');
+// Définir le model de l'article que l'on va chercher dans la database
 const Article = require('./database/models/article');
 app.use("/articles/post", articleValidPost);
+// Ajouter un article suite à l'authentification
 app.use("/article/add", auth);
 
 
 app.get("/", homePage)
 
-//Articles
-//Définir l'url
+
+//ARTICLES, définir l'url
+// Page Create Article
 app.get("/article/add", articleAddController)
-app.get("/articles/:id", articleSingleController)
-app.get("/articles/edit/:id", articleEditPageController)
-app.post("/articles/edit/:id", articleEditPostController)
+// Formulaire create Article
 app.post("/articles/post", articlePostController)
-app.get("/:id,", articleDeleteController)
+// Formulaire Article
+app.get("/articles/:id", articleSingleController)
+// Formulaire de la page d'édition
+app.get("/articles/edit/:id", articleEditPageController)
+// Formulaire d'édition
+app.post("/articles/edit/:id", articleEditPostController)
+// Boutton de suppression
+app.get("/articles/delete/:id", articleDeleteController)
 
 
-//Users
+//USERS
+// Pour la création d'articles
 app.get("/user/create", redirectAuthSucess, userCreate)
+// Pour s'enregister
 app.post("/user/register", redirectAuthSucess, userRegister)
+// Pour se connecter
 app.get("/user/login", redirectAuthSucess, userLogin)
+// Pour l'authentification
 app.post('/user/loginAuth', redirectAuthSucess, userLoginAuth)
+// Pour se déconnecter
 app.get("/user/logout", userLogout) //se déconnecter sans redirection
-
 
 
 //Définir la page "contact"
@@ -152,14 +167,14 @@ app.get("/contact", (req, res) => {
     res.render('contact')
 })
 
-//Error 404
+//ERROR 404
 app.use((req, res) => {
     /*On demande à javascript de renvoyer l'user vers la
 page "error404", lorsqu'il rentre un url qui n'existe pas dans l'application*/
     res.render('error404')
 })
 
-//Port
+//PORT
 app.listen(3000, function () {
     console.log("Le serveur tourne sur le port 3000");
 })

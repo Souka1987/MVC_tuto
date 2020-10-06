@@ -2,54 +2,65 @@
     <div class="container is=fullhd">
         <div class="field">
             <!----Ne pas oublier de rajouter l'url et la méthode. "multipart/form-data" sert à prendre en compte le jpeg--->
-            <form action="articles/post" method="POST" enctype="multipart/form-data">
+            <form action="/articles/post" method="POST" enctype="multipart/form-data">
+                {{!-- input Titre --}}
                 <label class="label">Titre de l'article</label>
                 <div class="control">
                     <input class="input" type="text" name="title">
                 </div>
-        </div>
 
-        <div class="field">
-            <label class="label">Contenu</label>
-            <div class="control">
-                <textarea class="textarea" name="content"></textarea>
-                <!---Rajout de l'éditeur de texte "CKeditor"-->
-                <script>
-                    CKEDITOR.replace('content');
-                </script>
-            </div>
-        </div>
+                {{!-- input Contenu --}}
+                <div class="field">
+                    <label class="label">Contenu</label>
+                    <div class="control">
+                        <textarea class="textarea" name="content" id='content'></textarea>
+                        <!---Rajout de l'éditeur de texte "CKeditor"-->
+                        <script>
+                            const ed = CKEDITOR.replace('content', {
+                                entities: false, //pour la suppression des caractères spéciaux
+                                uiColor: '#00000' //Coloriser les bordures de l'éditeur
+                            });
 
-        <div class="field">
-            <form action="/articles/post" method="POST">
-                <label class="label">Auteur</label>
-                <div class="control">
-                    <input class="input" type="text" name="author">
+                            ed.on('change', function (e) {//modification du contenu de l'éditeur
+                                console.log(e.editor.getData())
+                            })
+                        </script>
+                    </div>
                 </div>
-        </div>
 
-        <div class="file">
-            <label class="file-label">
-                <input class="file-input" type="file" name="image">
-                <span class="file-cta">
-                    <span class="file-icon">
-                        <i class="fas fa-upload"></i>
-                    </span>
-                    <span class="file-label">
-                        Envoyer une image au format : jpg
-                    </span>
-                </span>
-            </label>
-        </div>
+                {{!-- input Author --}}
+                <div class="field">
+                    <label class="label">Auteur</label>
+                    <div class="control">
+                        <input class="input" type="text" name="author">
+                    </div>
+                </div>
 
-        <div class="field is-grouped">
-            <div class="control">
-                <button class="button is-link">Enregister</button>
-            </div>
-            <div class="control">
-                <button class="button is-text">Annuler</button>
-            </div>
+                {{!-- input File (Image) --}}
+                <div class="file">
+                    <label class="file-label">
+                        <input class="file-input" type="file" name="image">
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Envoyer une image au format : jpg
+                            </span>
+                        </span>
+                    </label>
+                </div>
+
+                {{!-- Boutton --}}
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button class="button is-link">Enregister</button>
+                    </div>
+                    <div class="control">
+                        <button class="button is-text">Annuler</button>
+                    </div>
+                </div>
+
             </form>
         </div>
-    </div>
 </section>

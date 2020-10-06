@@ -1,13 +1,15 @@
 <section class="section">
     <class class="container is=fullhd">
         <div class="field">
+
+            {{!-- input titre --}}
             <form action="/articles/edit/{{ article._id }}" method="POST" enctype="multipart/form-data">
                 <label class="label">Titre de l'article: {{ article.title }} </label>
                 <div class="control">
                     <input class="input" type="text" name="title" value="{{ title }}">
                 </div>
 
-
+                {{!-- input contenu --}}
                 <div class="field">
                     <label class="label">Contenu</label>
                     <div class="control">
@@ -18,6 +20,8 @@
                     </div>
                 </div>
 
+
+                {{!-- input auteur --}}
                 <div class="field">
                     <label class="label">Auteur</label>
                     <div class="control">
@@ -26,6 +30,12 @@
                     <button class="button is-link">Valider</button>
                 </div>
             </form>
+
+            {{!-- Boutton suppression --}}
+            <form action="/articles/delete/{{ article._id }}" method="get">
+                <button type="submit"> Suppresion </button>
+            </form>
+
         </div>
     </class>
 </section>
