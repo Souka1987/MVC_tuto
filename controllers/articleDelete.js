@@ -15,11 +15,11 @@ module.exports = async (req, res) => {
     ciblant que son id*/
 
         if (err) return console.log(err)
-        Article.deleteOne({
+        Article.deleteOne({//pour suprimer un document à la fois par son ID
                 _id: req.params.id//tjs définir l'ID
             }, (err) => {
-                if (!err) return res.redirect('/')
-                else res.send(err)
+                if (!err) return res.redirect('/')//si il n'y a pas d'érreur rediriger vers la page d'acceuil
+                else res.send(err) //sinon afficher l'érreur
             })
     })
 

@@ -48,11 +48,7 @@ require('dotenv').config()
 
 
 //Mongoose pour le lien avec nodejs. "blog" sera le nom de la base de données.
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-
-});
+mongoose.connect( process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true)
 
@@ -175,6 +171,6 @@ page "error404", lorsqu'il rentre un url qui n'existe pas dans l'application*/
 })
 
 //PORT
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log("Le serveur tourne sur le port 3000");
 })

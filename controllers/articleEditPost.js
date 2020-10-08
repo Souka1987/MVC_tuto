@@ -7,6 +7,19 @@ const Article = require('../database/models/article')
 module.exports = async (req, res)=>{
 
     const q = req.params.id
+    // récuperé les req.files
+    
+
+    // une condition (si name: image)
+      // on fabrique l'objet de notre image 
+      // on supprime l'ancienne image
+      // on édit le nouveau contenu
+      // on renvoie le resultat
+
+
+    // Si pas d'image alors tu fais ça
+
+    // 
 
     console.log(req.body)//Voir si cela fonctionne
     Article.findByIdAndUpdate(q ,{//Définir les variables de son article
@@ -14,6 +27,7 @@ module.exports = async (req, res)=>{
         title: req.body.title,
         content: req.body.content,
         author: req.body.author 
+        // Rajouter le nom de l'image
 
     }, (err) => {
         if (err) console.log(err);//Si il y a une erreur, l'afficher
