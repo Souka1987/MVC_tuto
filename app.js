@@ -12,9 +12,7 @@ const MongoStore = require('connect-mongo');
 // le flash est une zone spéciale de la session servant à stocker les infos utilisateur.
 const connectFlash = require('connect-flash');
 // éditeur de texte
-const {
-    stripTags, limit
-} = require('./helpers/hbs');
+const {stripTags, limit} = require('./helpers/hbs');
 
 //Indispensable pour les méthodes "put" et "delete"
 const methodOverride = require('method-override');
@@ -48,9 +46,19 @@ require('dotenv').config()
 
 
 //Mongoose pour le lien avec nodejs. "blog" sera le nom de la base de données.
-mongoose.connect( process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true)
+// mongoose.connect( , {useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.set('useFindAndModify', false);
+// mongoose.set('useCreateIndex', true)
+
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  })
+  .then(() => console.log('Connecter a MongoDB'))
+  .catch(err => console.log(err))
 
 //Handlebars.moment => Pour formater la temporalité (dates/horraires)
 var Handlebars = require("handlebars");

@@ -2,18 +2,24 @@
     <class class="container is=fullhd">
         <div class="field">
 
+            <img src="{{ article.image }}" alt="" srcset="">
+            <h1 class="title">{{article.title}}</h1>
+            <p>{{article.content}}</p>
+
+
             {{!-- input titre --}}
             <form action="/articles/edit/{{ article._id }}" method="POST" enctype="multipart/form-data">
                 <label class="label">Titre de l'article: {{ article.title }} </label>
                 <div class="control">
-                    <input class="input" type="text" name="title" value="{{ title }}">
+                    <input class="input" type="text" name="title" value="{{ article.title }}">
                 </div>
 
                 {{!-- input contenu --}}
                 <div class="field">
                     <label class="label">Contenu</label>
                     <div class="control">
-                        <textarea name="content" id="editor1" rows="10" cols="80" value="{{ content }}"></textarea>
+                        <textarea name="content" id="editor1" rows="10" cols="80"
+                            value="{{ article.content }}"></textarea>
                         <script>
                             CKEDITOR.replace('content');
                         </script>
@@ -25,10 +31,26 @@
                 <div class="field">
                     <label class="label">Auteur</label>
                     <div class="control">
-                        <input class="input" type="text" name="author" value="{{ author }}">
+                        <input class="input" type="text" name="author" value="{{ article.author }}">
                     </div>
                     <button class="button is-link">Valider</button>
                 </div>
+
+                {{!-- input File (Image) --}}
+                <div class="file">
+                    <label class="file-label">
+                        <input class="file-input" type="file" name="image">
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Envoyer une image au format : jpg
+                            </span>
+                        </span>
+                    </label>
+                </div>
+
             </form>
 
             {{!-- Boutton suppression --}}
